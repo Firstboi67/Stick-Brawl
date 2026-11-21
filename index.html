@@ -89,7 +89,7 @@ const WP=[{n:'Fists',d:8,r:36,cd:.3,l:0,c:''},{n:'Wooden Sword',d:14,r:52,cd:.34
 [0,1,2,3,4,5,6].forEach(i=>WP[i].pw=i);WP[5].ab='storm';WP[6].ab='phantom';
 const WB=WP.map(w=>({...w}));
 const K={};let P,E,L,T,wave,kills,toSpawn,spawnT,pause,over,overT,shop=null,guards=0,FB=[],LS=[],FL=0,qte=null,RW=false,SAFE=false,PAUSE=false,WT=5,AR=[],DF=[],WARN=[],won=false,WN=0,WD=0,RK=[],SHT=0,VW=0,SK=false,RAID=false,CS=0,THD=[],BN='',BNT=0,BNC='#fff',last=0,fr=0;
-function reset(){P={x:400,y:G,vy:0,hp:100,max:100,gold:0,w:0,ar:0,pot:1,face:1,atk:0,cd:0,inv:0,run:0,sc:0,stun:0,kat:0,kc:0,dash:0,spin:0,lw:0};E=[];L=[];T=[];wave=1;kills=0;toSpawn=5;spawnT=1;pause=0;over=false;overT=0;shop=null;guards=0;FB=[];LS=[];FL=0;qte=null;RW=false;SAFE=false;PAUSE=false;WT=5;AR=[];DF=[];WARN=[];won=false;WN=0;RK=[];SHT=0;VW=0;SK=false;RAID=false;CS=0;THD=[];BNT=0;mus(false);P.arm=0;P.dkd=false;P.ext=false;P.dead=0;P.pin=0;P.nSn=0;P.nTh=0;P.auto=false;P.bag=[];P.cur=null;refresh();$('dlg').style.display='none';$('qte').style.display='none';renderShop();theme()}
+function reset(){P={x:400,y:G,vy:0,hp:100,max:100,gold:0,w:0,ar:0,pot:1,face:1,atk:0,cd:0,inv:0,run:0,sc:0,stun:0,kat:0,kc:0,dash:0,spin:0,lw:0};E=[];L=[];T=[];wave=1;kills=0;toSpawn=5;spawnT=1;pause=0;over=false;overT=0;shop=null;guards=0;FB=[];LS=[];FL=0;qte=null;RW=false;SAFE=false;PAUSE=false;WT=5;AR=[];DF=[];WARN=[];won=false;WN=0;RK=[];SHT=0;VW=0;SK=false;RAID=false;CS=0;THD=[];BNT=0;mus(false);P.arm=0;P.dkd=false;P.ext=false;P.dead=0;P.pin=0;P.nSn=0;P.nTh=0;P.autoSell=false;P.bag=[];P.cur=nullrefresh();$('dlg').style.display='none';$('qte').style.display='none';renderShop();theme()}
 function say(x,y,s,c){T.push({x,y,s,c,t:1})}
 function spawn(boss,fb){spawn0(boss,fb);const q=E[E.length-1],wm=1+.1*(wave-1),wd=1+.05*(wave-1);q.hp*=wm;q.max*=wm;q.dmg*=wd;if(RAID&&!boss){q.shadow=true;q.raid=true;q.hp*=1.35;q.max*=1.35;q.dmg*=1.35}}
 function spawn0(boss,fb){
@@ -284,7 +284,7 @@ function refresh0(){
   if(c){const b=WB[c.id],m=(1+.15*c.up)*(c.du?1.6:1);WP[c.id]={...b,d:Math.round(b.d*m),cd:b.cd*(c.du?.85:1),r:b.r+(c.du?8:0),n:(c.du?'Dual ':'')+b.n+(c.up?' +'+c.up:''),ab:c.du?(b.ab==='dash'?'spin':b.ab||'spin'):b.ab}}
 }
 function equip(it){P.cur=it;P.w=it?it.id:0;P.spin=0;P.dash=0;refresh()}
-function getWeapon(v,au){if(au&&P.auto&&WB[v].pw<WP[P.w].pw&&v!==5&&v!==13){const g=sellVal({id:v,up:0,du:false});P.gold+=g;say(P.x,P.y-80,'Auto-sold '+WB[v].n+' +'+g+' 🪙','#f08c00');return}
+function getWeapon(v,au){if(au&&P.autoSell&&WB[v].pw<WP[P.w].pw&&v!==5&&v!==13){const g=sellVal({id:v,up:0,du:false});P.gold+=g;say(P.x,P.y-80,'Auto-sold '+WB[v].n+' +'+g+' 🪙','#f08c00');return}
   if(P.bag.length>=24){P.gold+=10;say(P.x,P.y-80,'Bag full! +10 🪙','#f08c00');return}
   const it={id:v,up:0,du:false};P.bag.push(it);
   say(P.x,P.y-80,'+'+WB[v].n,WB[v].c||'#fff');
@@ -297,8 +297,8 @@ function dlg(h){$('dlg').innerHTML='<div class="card">'+h+'</div>';$('dlg').styl
 function closeDlg(){$('dlg').style.display='none';PAUSE=false}
 function showInv(){
   let h='<b>🎒 Inventory</b><p>🪙 '+P.gold+' · 🛡 '+P.ar+' · 🧪 '+P.pot+' · HP '+Math.ceil(P.hp)+'/'+P.max+'</p>';
-  h+='<p>Armor: '+['None','Wooden','Iron','Titanium','Dragon Hunter','Shadow Glory'][P.arm||0]+' (+'+AD[P.arm||0]+' def)</p>';
-  h+='<button data-a="auto" style="width:100%;margin-bottom:6px">'+(P.auto?'✅':'⬜')+' Auto-sell weaker weapon drops</button>';
+  h+='<p>Armor: '+['None','Wooden','Iron','Titanium','Dragon Hunter','Shadow Glory'][P.arm||0]+' (+'+AD[P.arm||0]+' def, +'+AH[P.arm||0]+' max HP)</p>';
+  h+='<button data-a="auto" style="width:100%;margin-bottom:6px">'+(P.autoSell?'✅':'⬜')+' Auto-sell weaker weapon drops</button>';
   h+='<div class="row"><span>'+(P.cur?'':'✅ ')+'Fists</span><button data-a="eq" data-i="-1">Equip</button></div>';
   P.bag.forEach((it,i)=>{const ab=abOf(it);h+='<div class="row"><span>'+(P.cur===it?'✅ ':'')+bagName(it)+'<br><small>'+(ab?AB[ab]:'no skill')+'</small></span><button data-a="eq" data-i="'+i+'">Equip</button><button data-a="sell" data-i="'+i+'">🪙 '+sellVal(it)+'</button></div>'});
   h+='<button class="go" data-a="close">Close</button>';dlg(h);
@@ -355,7 +355,7 @@ function shoot(w){if(w.rg==='wand'){wand(w);return}if(w.rg==='snipe'){const r=Ma
   const sp={arrow:650,fire:480,snipe:1500,shadow:850,gun:1300}[w.rg];
   AR.push({x:sx,y:sy,vx:dx*sp,vy:dy*sp,d:Math.round(w.d*(P.dead>0?1.5:1)),t:w.rg,pierce:w.rg==='snipe'||w.rg==='shadow',hit:[],life:1.6});
 }
-function spawnDragon(){E.push({x:700,y:G,vx:0,hp:12500,max:12500,boss:true,br:false,drg:true,s:3,hw:100,hh:66,cy:G-60,dmg:45,face:-1,atk:0,cd:2,fl:0,run:0,ph:1,t:0,fc:2,sc:4,sm:6,wc:7,st:'idle',stT:0,pt:0,pend:0,n:0})}
+function spawnDragon(){E.push({x:700,y:G,vx:0,hp:5000,max:5000,boss:true,br:false,drg:true,s:3,hw:100,hh:66,cy:G-60,dmg:45,face:-1,atk:0,cd:2,fl:0,run:0,ph:1,t:0,fc:2,sc:4,sm:6,wc:7,st:'idle',stT:0,pt:0,pend:0,n:0})}
 function dragon(e,dt,dx){
   e.t+=dt;
   if(e.ph===1&&e.hp<=e.max*.67){e.ph=2;e.fc=1.5;e.st='idle';e.pt=0;say(400,100,'PHASE 2 — parry its fireballs or shoot it!','#ff922b')}
@@ -421,7 +421,7 @@ function dino(e,dt,dx){
   }
   e.x=Math.max(40,Math.min(W-40,e.x));
 }
-function spawnDK(){SHT=2.5;E.push({x:W+60,y:G,vx:0,hp:8750,max:8750,boss:true,br:false,dk:true,s:2.2,hw:70,sp:105,dmg:48,face:-1,atk:0,cd:1.2,fl:0,run:0,st:'walk',stT:0,tot:1})}
+function spawnDK(){SHT=2.5;E.push({x:W+60,y:G,vx:0,hp:3750,max:3750,boss:true,br:false,dk:true,s:2.2,hw:70,sp:105,dmg:48,face:-1,atk:0,cd:1.2,fl:0,run:0,st:'walk',stT:0,tot:1})}
 function dk(e,dt,dx){if(!e.army&&e.hp<=e.max*.5){e.army=true;e.q=14;e.qt=0;say(400,100,'SHADOW ARMY!','#4dabf7')}if(e.q>0){e.qt-=dt;if(e.qt<=0){e.qt=.3;e.q--;spawnShadow()}}if(dkFin(e,dt,dx))return;
   const d=Math.abs(dx),f=dx<0?-1:1;
   if(e.st==='walk'){
@@ -541,7 +541,8 @@ function drawGolem(e){
   R(x+f*1.5*u,y-(5-lift*2.4)*u,.8*u,2.4*u);R(x-f*2.3*u,y-5*u,.8*u,2.4*u);
   X.fillStyle='#ffd43b';X.fillRect(x+f*.25*u-3,y-6.1*u,5,5);X.fillRect(x-f*.45*u-3,y-6.1*u,5,5);
 }
-const AD=[0,2,4,7,10,14];
+const AD=[0,3,6,10.5,15,21];
+const AH=[0,30,60,105,150,225];
 let AU=null;
 function mus(on){
   try{
@@ -606,7 +607,7 @@ function drawArmor(x,y,f,t,s){
 }
 function getArmor(v){
   const nm=['','Wooden','Iron','Titanium','Dragon Hunter','Shadow Glory'];
-  if(AD[v]>AD[P.arm||0]){P.arm=v;say(P.x,P.y-85,'Equipped '+nm[v]+' Armor!','#e9ecef')}
+  if(AD[v]>AD[P.arm||0]){const gain=AH[v]-AH[P.arm||0];P.arm=v;P.max+=gain;P.hp=Math.min(P.max,P.hp+gain);say(P.x,P.y-85,'Equipped '+nm[v]+' Armor! +'+gain+' HP','#e9ecef')}
   else{const g=AD[v]*12;P.gold+=g;say(P.x,P.y-85,'+'+g+' 🪙 (sold '+nm[v]+')','#f08c00')}
 }
 function shadowDrop(e){
@@ -649,7 +650,7 @@ function dkFin(e,dt,dx){
       LS.push({p:[[ox,oy],[ox+Math.cos(ang)*1400,oy+Math.sin(ang)*1400]],t:.6,c:'#74c0fc',w:90});FL=.35;
       const px=P.x-ox,py=(P.y-30)-oy,dist=Math.abs(px*Math.sin(ang)-py*Math.cos(ang)),along=px*Math.cos(ang)+py*Math.sin(ang);
       e.lock=false;e.atk=0;
-      if(dist<48&&along>0&&P.inv<=0){hurt(Math.round(P.max*.7));P.kx=e.face*900;e.st='walk';e.cd=2;e.fin=false;e.ft=3}
+      if(dist<48&&along>0&&P.inv<=0){hurt(Math.round(P.max*.95+P.ar+AD[P.arm||0]));P.kx=e.face*900;e.st='walk';e.cd=2;e.fin=false;e.ft=3}
       else{e.st='stagger';e.stT=5;say(e.x,e.y-170,'STAGGERED!','#ffd43b')}
     }
     return true;
@@ -710,7 +711,7 @@ function openShop(){
   const sell=[[1,30],[2,90],[8,130],[3,180],[7,260],[9,330],[11,80],[12,250]].sort(()=>Math.random()-.5).slice(0,3);sell.forEach(([v,p])=>s.push({t:'wp',v,n:'⚔ '+WB[v].n+' ('+WB[v].d+' dmg'+(WB[v].ab?', '+WB[v].ab:'')+')',p}));
   s.push({t:'pot',v:1,n:'🧪 Potion',p:18});
   if(P.ar<10)s.push({t:'ar',v:1,n:'🛡 Armor +2',p:45});
-  {const v=[1,2,3][Math.floor(Math.random()*3)];s.push({t:'arm',v,n:'🛡 '+['','Wooden','Iron','Titanium'][v]+' Armor (+'+AD[v]+')',p:[0,70,180,420][v]})}
+  {const v=[1,2,3][Math.floor(Math.random()*3)];s.push({t:'arm',v,n:'🛡 '+['','Wooden','Iron','Titanium'][v]+' Armor (+'+AD[v]+' def, +'+AH[v]+' HP)',p:[0,70,180,420][v]})}
   shop={s,msg:'Psst… traveler! Care to trade?',end:false};renderShop();
 }
 function renderShop(){
@@ -999,7 +1000,7 @@ addEventListener('keydown',e=>{if(qte&&e.key.length===1&&'123'.includes(e.key))q
 $('qte').addEventListener('pointerdown',e=>{const b=e.target.closest('button');if(b)qtePress(+b.dataset.q)});
 $('tb').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.a==='pause')showPause();else showInv()});
 $('safe').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;const a=b.dataset.a;if(a==='trade')openShop();else if(a==='anvil')showAnvil();else if(a==='go')endSafe()});
-$('dlg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a,i=+b.dataset.i;if(a==='close')closeDlg();else if(a==='eq'){equip(i<0?null:P.bag[i]);showInv()}else if(a==='up')upgrade(i);else if(a==='fuse')fuse(b.dataset.i);else if(a==='auto'){P.auto=!P.auto;showInv()}else if(a==='sell')sellIt(i);else if(a==='inv')showInv()});
+$('dlg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.a,i=+b.dataset.i;if(a==='close')closeDlg();else if(a==='eq'){equip(i<0?null:P.bag[i]);showInv()}else if(a==='up')upgrade(i);else if(a==='fuse')fuse(b.dataset.i);else if(a==='auto'){P.autoSell=!P.autoSell;showInv()}else if(a==='sell')sellIt(i);else if(a==='inv')showInv()});
 addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='p'||k==='escape'){if($('dlg').style.display==='flex')closeDlg();else showPause()}else if(k==='i')showInv()});
 reset();requestAnimationFrame(loop);
 </script></body></html>
