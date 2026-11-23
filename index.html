@@ -144,7 +144,7 @@ const WP=[{n:'Fists',d:8,r:36,cd:.3,l:0,c:''},{n:'Wooden Sword',d:14,r:52,cd:.34
 [0,1,2,3,4,5,6].forEach(i=>WP[i].pw=i);WP[5].ab='storm';WP[6].ab='phantom';
 const WB=WP.map(w=>({...w}));
 const K={};let P,E,L,T,wave,kills,toSpawn,spawnT,pause,over,overT,shop=null,guards=0,FB=[],LS=[],FL=0,qte=null,RW=false,SAFE=false,PAUSE=false,WT=5,AR=[],DF=[],WARN=[],won=false,WN=0,WD=0,RK=[],SHT=0,VW=0,SK=false,RAID=false,CS=0,THD=[],BN='',BNT=0,BNC='#fff',AL=[],GY=[],EV=0,UNG=null,UN=0,BKT=0,BKL=[],BKD=2.2,BKCB=null,UTH=false,DEMO=false,MENU=false,PF=null,PFD=false,SQ=null,CIN={b:0,txt:'',col:'#fff',ta:0,ty:180,only:false,hideP:false,aura:0,scarf:0,sword:0,shine:0},CAM={z:1,x:400,y:180,tz:1,tx:400,ty:180},UWIND=0,SNAP=null,ATAP=0,CL=null,US={dark:0,gxs:[],n:1,p:0},SPR=[],ASK=null,UB=null,FIN={p:0},last=0,fr=0;
-function reset(){P={x:400,y:G,vy:0,hp:100,max:100,gold:0,w:0,ar:0,pot:1,face:1,atk:0,cd:0,inv:0,run:0,sc:0,stun:0,kat:0,kc:0,dash:0,spin:0,lw:0};E=[];L=[];T=[];wave=1;kills=0;toSpawn=5;spawnT=1;pause=0;over=false;overT=0;shop=null;guards=0;FB=[];LS=[];FL=0;qte=null;RW=false;SAFE=false;PAUSE=false;WT=5;AR=[];DF=[];WARN=[];won=false;WN=0;RK=[];SHT=0;VW=0;SK=false;RAID=false;CS=0;THD=[];BNT=0;mus(false);AL=[];GY=[];EV=0;UNG=null;UN=0;BKT=0;UTH=false;P.ck=0;P.cr=0;P.cs=0;P.evo=false;P.crim=0;P.sh=0;P.uc=0;P.cac=0;P.ball=false;P.ballp=0;P.unDone=false;P.unNext=0;P.dkw20=false;P.arm=0;P.unW=5+Math.floor(Math.random()*11);P.unCool=0;P.keepSh=false;P.bleed=0;P.la=-99;SQ=null;CL=null;SPR=[];SNAP=null;UWIND=0;ATAP=0;ASK=null;UB=null;FIN.p=0;resetCin();P.dkd=false;P.ext=false;P.dead=0;P.pin=0;P.nSn=0;P.nTh=0;P.auto=!!(PF&&PF.set.auto);P.bag=[];P.cur=null;refresh();$('dlg').style.display='none';$('qte').style.display='none';renderShop();theme()}
+function reset(){P={x:400,y:G,vy:0,hp:100,max:100,gold:0,w:0,ar:0,pot:1,face:1,atk:0,cd:0,inv:0,run:0,sc:0,stun:0,kat:0,kc:0,dash:0,spin:0,lw:0};E=[];L=[];T=[];wave=1;kills=0;toSpawn=5;spawnT=1;pause=0;over=false;overT=0;shop=null;guards=0;FB=[];LS=[];FL=0;qte=null;RW=false;SAFE=false;PAUSE=false;WT=5;AR=[];DF=[];WARN=[];won=false;WN=0;RK=[];SHT=0;VW=0;SK=false;RAID=false;CS=0;THD=[];BNT=0;mus(false);AL=[];GY=[];EV=0;UNG=null;UN=0;BKT=0;UTH=false;P.ck=0;P.cr=0;P.cs=0;P.evo=false;P.crim=0;P.sh=0;P.uc=0;P.cac=0;P.ball=false;P.ballp=0;P.unDone=false;P.unNext=0;P.dkw20=false;P.arm=0;P.unW=Math.random()<.6?5+Math.floor(Math.random()*6):11+Math.floor(Math.random()*15);P.unCool=0;P.keepSh=false;P.bleed=0;P.la=-99;SQ=null;CL=null;SPR=[];SNAP=null;UWIND=0;ATAP=0;ASK=null;UB=null;FIN.p=0;resetCin();P.dkd=false;P.ext=false;P.dead=0;P.pin=0;P.nSn=0;P.nTh=0;P.auto=!!(PF&&PF.set.auto);P.bag=[];P.cur=null;refresh();$('dlg').style.display='none';$('qte').style.display='none';renderShop();theme()}
 function say(x,y,s,c){if(PF&&!PF.set.dmg&&/^[-+]?\d+$/.test(String(s)))return;sayHook(s);T.push({x,y,s,c,t:1})}
 function spawn(boss,fb){spawn0(boss,fb);const q=E[E.length-1],wm=1+.1*(wave-1),wd=1+.05*(wave-1);q.hp*=wm;q.max*=wm;q.dmg*=wd;if(RAID&&!boss){q.shadow=true;q.raid=true;q.hp*=1.35;q.max*=1.35;q.dmg*=1.35}}
 function spawn0(boss,fb){
@@ -1270,7 +1270,7 @@ function musB(on){
 }
 function guideSpawn(){
   if(DEMO||MENU)return;
-  if(wave>15){UNG=null;return}
+  if(wave>25){UNG=null;return}
   if(!UNG&&!P.unDone&&wave===P.unW){UNG={x:60,hp:750,max:750,sh:150,face:1,run:0,cd:0,atk:0,hpShow:false,hit:0};banner('A stranger joins you: The Guide','#9ad7ff',3)}
 }
 function guideAI(dt){
@@ -1287,7 +1287,7 @@ function drawGuide(){
   man(x+(Math.random()<.02?(Math.random()-.5)*10:0),G,f,1,'#9ad7ff',g.atk>0?Math.min(1,g.atk/.3):0,30,{c:'#9ad7ff',k:'sword'},g.run||0);
   X.strokeStyle='#d6283e';X.lineWidth=4;X.lineCap='round';X.beginPath();X.moveTo(x,G-40);X.lineTo(x-f*14,G-38+Math.sin(fr*.3)*3);X.lineTo(x-f*26,G-43+Math.sin(fr*.3+1)*3);X.stroke();
   X.textAlign='center';X.font='bold 12px system-ui,sans-serif';X.fillStyle='#9ad7ff';X.fillText('The Guide',x,G-74);
-  if(g.hpShow){X.fillStyle='rgba(120,120,120,.8)';X.fillRect(60,12,W-120,10);X.fillStyle='#4dabf7';X.fillRect(60,12,(W-120)*Math.max(0,g.hp/g.max),10);X.fillStyle='#74c0fc';X.fillRect(60,26,(W-120)*Math.max(0,g.sh/150),5);X.fillStyle=FG;X.font='bold 13px system-ui,sans-serif';X.fillText('THE GUIDE  '+Math.ceil(g.hp)+' / '+g.max,W/2,38)}
+  if(g.hpShow){X.fillStyle='rgba(120,120,120,.8)';X.fillRect(60,12,W-120,10);X.fillStyle='#4dabf7';X.fillRect(60,12,(W-120)*Math.max(0,g.hp/g.max),10);X.fillStyle='#74c0fc';X.fillRect(60,26,(W-120)*Math.max(0,g.sh/150),5);X.fillStyle=FG;X.font='bold 13px system-ui,sans-serif';X.fillText('The Guide  '+Math.ceil(g.hp)+' / '+g.max,W/2,38)}
   if(Math.abs(P.x-x)<150&&!UN){const q=SAFE?['Rest well, traveler.','Strange blade you carry\u2026']:['Stay behind me!','I\u2019ve got your back.','Keep fighting!'];X.font='11px system-ui,sans-serif';X.fillStyle=FG;X.fillText(q[Math.floor(fr/200)%q.length],x+60,G-90)}
 }
 function snapTake(){SNAP={hp:P.hp,max:P.max,gold:P.gold,pot:P.pot,ar:P.ar,arm:P.arm,bag:P.bag.map(b=>({...b})),ci:P.cur?P.bag.indexOf(P.cur):-1}}
@@ -1313,13 +1313,13 @@ function guideNo(){
 }
 function guideYes(){
   UN=2;
-  seq([S_.to(CIN,{b:1},.3),S_.fn(()=>{UNG=null;E.length=0;P.hp=P.max;P.x=140;P.face=1;spawnGuider()}),S_.to(CIN,{b:0},.8),S_.fn(()=>banner('GUIDER','#9ad7ff',2))]);
+  seq([S_.to(CIN,{b:1},.3),S_.fn(()=>{UNG=null;E.length=0;P.hp=P.max;P.x=140;P.face=1;spawnTheGuide()}),S_.to(CIN,{b:0},.8),S_.fn(()=>banner('The Guide','#9ad7ff',2))]);
 }
-function spawnGuider(){E.push({x:W-130,y:G,vx:0,hp:750,max:750,sh:150,lh:750,boss:true,br:false,gd:true,s:1.1,hw:30,sp:80,dmg:12,face:-1,atk:0,cd:1,fl:0,run:0,st:'chase',stT:0,ph:1,fk:0,gl:0,onDie:gdDie})}
-function guider(e,dt,dx){
+function spawnTheGuide(){E.push({x:W-130,y:G,vx:0,hp:750,max:750,sh:150,lh:750,boss:true,br:false,gd:true,s:1.1,hw:30,sp:80,dmg:12,face:-1,atk:0,cd:1,fl:0,run:0,st:'chase',stT:0,ph:1,fk:0,gl:0,onDie:gdDie})}
+function theGuide(e,dt,dx){
   const d=Math.abs(dx),f=dx<0?-1:1;e.face=f;
   e.fk+=dt;if(e.ph===2&&e.fk>5){e.fk=0;e.gl=.3}if(e.gl>0)e.gl-=dt;
-  if(e.ph===1&&e.hp<=e.max*.35){e.ph=2;e.st='scarf';e.stT=2.6;e.lock=true;e.keep=e.hp;banner('Guider raises his guard\u2026','#9ad7ff',2.5)}
+  if(e.ph===1&&e.hp<=e.max*.35){e.ph=2;e.st='scarf';e.stT=2.6;e.lock=true;e.keep=e.hp;banner('The Guide raises his guard\u2026','#9ad7ff',2.5)}
   if(e.st==='scarf'){e.stT-=dt;e.atk=.4;if(e.stT<=0){e.lock=false;e.sh+=125;e.sp=120;e.st='chase';e.atk=0;e.cd=.8}return}
   if(e.st==='chase'){e.atk=0;e.run+=dt*6;if(d>70)e.x+=f*e.sp*dt;if(d<=90&&e.cd<=0){e.st='atk';e.stT=.5}}
   else{e.stT-=dt;e.atk=Math.max(.001,e.stT/.5*.4);if(e.stT<=0){if(Math.abs(P.x-e.x)<100&&P.y>e.y-55&&(P.x-e.x)*e.face>-15){hurt(e.dmg);P.kx=e.face*250}e.st='chase';e.cd=1.1}}
@@ -1530,7 +1530,7 @@ function takeKat(){
   else{P.gold+=20;say(P.x,P.y-90,'+20 🪙 (sold)','#f08c00')}
 }
 function nextWave(){
-  wave++;guideSpawn();if(wave===3||wave>5&&wave<26&&wave%5===1){startSafe();return}if(wave===35){toSpawn=0;WT=1;RAID=false;spawnEmp();say(400,110,'THE SHADOW EMPEROR','#9775fa');return}if(wave>=26&&wave<=34){RAID=true;toSpawn=6+(wave-25);WT=toSpawn;spawnT=.6;say(400,110,'SHADOW ARMY RAID!','#9775fa');P.hp=Math.min(P.max,P.hp+20);return}if(wave===25){toSpawn=0;WT=1;spawnDragon();say(400,110,'FINAL WAVE: THE DRAGON','#e03131');return}const ry=wave%5!==0&&(Math.random()<.02||kills>=200&&!P.ryD);if(ry)P.ryD=true;RW=!ry&&wave%5!==0&&Math.random()<.2;toSpawn=ry?0:RW?8:4+wave*2;WT=toSpawn+(wave%5===0?1:0);spawnT=.5;if(ry){spawnDK();say(400,110,'SECRET WAVE: THE DARK KNIGHT','#4c6ef5')}else if(RW)say(400,110,'RUSHER WAVE!','#e03131');P.hp=Math.min(P.max,P.hp+15);
+  wave++;guideSpawn();if(wave===3||wave>5&&wave<26&&wave%5===1){startSafe();return}if(wave===35){toSpawn=0;WT=1;RAID=false;spawnEmp();say(400,110,'THE SHADOW EMPEROR','#9775fa');return}if(wave>=26&&wave<=34){RAID=true;toSpawn=6+(wave-25);WT=toSpawn;spawnT=.6;say(400,110,'SHADOW ARMY RAID!','#9775fa');P.hp=Math.min(P.max,P.hp+20);return}if(wave===25){toSpawn=0;WT=1;spawnDragon();say(400,110,'FINAL WAVE: THE DRAGON','#e03131');return}const ry=wave%5!==0&&(Math.random()<.05||kills>=350&&!P.ryD);if(ry)P.ryD=true;RW=!ry&&wave%5!==0&&Math.random()<.2;toSpawn=ry?0:RW?8:4+wave*2;WT=toSpawn+(wave%5===0?1:0);spawnT=.5;if(ry){spawnDK();say(400,110,'SECRET WAVE: THE DARK KNIGHT','#4c6ef5')}else if(RW)say(400,110,'RUSHER WAVE!','#e03131');P.hp=Math.min(P.max,P.hp+15);
   if(wave%5===0){if(wave===20&&P.dkw20){spawnDK();say(400,110,'THE DARK KNIGHT APPEARS','#4c6ef5')}else if(Math.random()<.25){spawnDino();say(400,110,'A DINOSAUR APPEARS!','#e67700')}else if(wave===10){spawnRB();say(400,110,'RUSHER BOSS!','#0b7285')}else if(wave===15){spawnRanger();say(400,110,'RANGER BOSS!','#2f9e44')}else if(wave===20){spawnGolem(true);say(400,110,'GOLEM BOSS!','#868e96')}else{spawn(true);say(400,120,'BOSS!','#e03131')}}
 }
 function openShop(){
@@ -1633,7 +1633,7 @@ function update(dt){
     if(e.rush){rusher(e,dt,dx);continue}
     if(e.ryo){ryo(e,dt,dx);continue}
     if(e.drg){dragon(e,dt,dx);continue}
-    if(e.gd){guider(e,dt,dx);continue}
+    if(e.gd){theGuide(e,dt,dx);continue}
     if(e.un2){unk2(e,dt,dx);continue}
     if(e.unk){unknown(e,dt,dx);continue}
     if(e.emp){emp(e,dt,dx);continue}
@@ -1761,7 +1761,7 @@ function draw0(){
       X.lineCap='round';X.strokeStyle='#e9ecef';X.lineWidth=2.5;X.beginPath();X.moveTo(hx,hy);X.lineTo(hx+f*Math.cos(ang)*64*e.s,hy+Math.sin(ang)*64*e.s);X.stroke();
       if(e.st==='whirl'){X.strokeStyle='rgba(224,49,49,'+(wh?.7:.3+.2*Math.sin(fr))+')';X.lineWidth=wh?8:3;X.beginPath();X.ellipse(e.x,e.y-30,115,40,0,0,7);X.stroke()}
     }
-    if(e.boss&&!e.ryo){X.fillStyle='rgba(120,120,120,.8)';X.fillRect(60,12,W-120,10);X.fillStyle=e.rb?'#0b7285':'#e8590c';X.fillRect(60,12,(W-120)*Math.max(0,e.hp/e.max),10);X.textAlign='center';X.fillStyle=FG;X.font='bold 13px system-ui,sans-serif';X.fillText((e.rb?'RUSHER BOSS':e.emp?'SHADOW EMPEROR':e.dk?'THE DARK KNIGHT':e.dino?'T-REX':e.gd?(e.gl>0?'T#E UNKN0WN':'GUIDER'):e.un2?'THE UNKNOWN':e.unk?'#?E!R?R#':e.drg?'DRAGON':e.golem?'GOLEM BOSS':e.ranger?'RANGER BOSS':'BOSS')+'  '+Math.ceil(e.hp)+' / '+Math.ceil(e.max),W/2,38);bossDrops(e)}
+    if(e.boss&&!e.ryo){X.fillStyle='rgba(120,120,120,.8)';X.fillRect(60,12,W-120,10);X.fillStyle=e.rb?'#0b7285':'#e8590c';X.fillRect(60,12,(W-120)*Math.max(0,e.hp/e.max),10);X.textAlign='center';X.fillStyle=FG;X.font='bold 13px system-ui,sans-serif';X.fillText((e.rb?'RUSHER BOSS':e.emp?'SHADOW EMPEROR':e.dk?'THE DARK KNIGHT':e.dino?'T-REX':e.gd?(e.gl>0?'T#E UNKN0WN':'The Guide'):e.un2?'THE UNKNOWN':e.unk?'#?E!R?R#':e.drg?'DRAGON':e.golem?'GOLEM BOSS':e.ranger?'RANGER BOSS':'BOSS')+'  '+Math.ceil(e.hp)+' / '+Math.ceil(e.max),W/2,38);bossDrops(e)}
     if(e.drg){drawDragon(e,col);X.fillStyle=FG;X.fillRect(60+(W-120)*.33,9,2,16);X.fillRect(60+(W-120)*.67,9,2,16)}
     if(e.dino)drawDino(e,col);
     if(e.dk){
